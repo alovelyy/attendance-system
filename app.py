@@ -19,7 +19,7 @@ NORMAL_HOURS_TEMPORARY = 10
 RAMADAN_NORMAL_HOURS = 6
 
 # ============================================================
-# FUTURISTIC LOGIN (bottom‑aligned card)
+# LOGIN SCREEN (centred, exactly as described)
 # ============================================================
 def render_login():
     st.markdown("""
@@ -83,26 +83,24 @@ def render_login():
             100% { opacity: 0.8; transform: scale(1.2); }
         }
         
-        /* ---- NEW LAYOUT: bottom‑aligned card ---- */
+        /* ---- MAIN CONTAINER (centres everything) ---- */
         .login-container {
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;  /* pushes card to bottom */
+            justify-content: center;
             align-items: center;
             z-index: 5;
             pointer-events: none;
-            padding: 20px 0 30px;
         }
         .login-container > * { pointer-events: auto; }
         
         /* ---- TOP SECTION (title) ---- */
         .top-section {
-            flex: 0 1 auto;
             text-align: center;
-            margin-top: 20px;
+            margin-bottom: 30px;
             opacity: 0;
             animation: fadeUp 1.8s ease-out forwards;
             animation-delay: 0.5s;
@@ -145,18 +143,16 @@ def render_login():
             100% { opacity: 1; transform: translateY(0); }
         }
         
-        /* ---- BOTTOM SECTION (login card) ---- */
-        .bottom-section {
-            flex: 0 1 auto;
+        /* ---- LOGIN CARD (centred) ---- */
+        .login-wrapper {
             width: 90%;
             max-width: 400px;
-            margin-bottom: 10px;
             opacity: 0;
             animation: cardRise 1.4s ease-out forwards;
             animation-delay: 1.8s;
         }
         @keyframes cardRise {
-            0% { opacity: 0; transform: translateY(30px) scale(0.95); }
+            0% { opacity: 0; transform: translateY(40px) scale(0.95); }
             100% { opacity: 1; transform: translateY(0) scale(1); }
         }
         .login-card {
@@ -241,7 +237,7 @@ def render_login():
             z-index: 1;
         }
         
-        /* ---- CONTACT INFO INSIDE CARD (left‑aligned) ---- */
+        /* ---- CONTACT INFO INSIDE CARD (left‑aligned, below button) ---- */
         .contact-info {
             margin-top: 18px;
             padding-top: 14px;
@@ -282,17 +278,15 @@ def render_login():
             .contact-info .line { font-size: 13px; }
             .contact-info .name-line { font-size: 14px; }
             .contact-info { margin-top: 12px; padding-top: 10px; }
-            .bottom-section { margin-bottom: 5px; }
         }
         @media (max-height: 600px) {
             .neon-dpsr { font-size: clamp(30px, 6vw, 45px); }
             .company-name { font-size: clamp(16px, 2.5vw, 24px); }
-            .top-section { margin-top: 5px; }
+            .top-section { margin-bottom: 15px; }
             .login-card { padding: 14px 16px 12px; }
             .contact-info .line { font-size: 12px; line-height: 1.5; }
             .contact-info .name-line { font-size: 13px; }
             .contact-info { margin-top: 8px; padding-top: 8px; }
-            .bottom-section { margin-bottom: 0; }
         }
     </style>
     """, unsafe_allow_html=True)
@@ -322,7 +316,7 @@ def render_login():
     </script>
     """, unsafe_allow_html=True)
 
-    # Top title + bottom card
+    # Top title + centred card
     st.markdown("""
     <div class="login-container">
         <div class="top-section">
@@ -331,7 +325,7 @@ def render_login():
             <div class="company-sub">— ULTIMATE ATTENDANCE SYSTEM —</div>
             <div class="title-divider"></div>
         </div>
-        <div class="bottom-section">
+        <div class="login-wrapper">
             <div class="login-card">
     """, unsafe_allow_html=True)
 
