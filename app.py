@@ -19,7 +19,7 @@ NORMAL_HOURS_TEMPORARY = 10
 RAMADAN_NORMAL_HOURS = 6
 
 # ============================================================
-# CINEMATIC LOGIN SCREEN (FLEX – NO OVERLAP)
+# CINEMATIC LOGIN SCREEN (MINIMAL CARD)
 # ============================================================
 def render_login():
     st.markdown("""
@@ -161,7 +161,7 @@ def render_login():
             100% { opacity: 1; transform: translateY(0); }
         }
         
-        /* Bottom section: login card */
+        /* Bottom section: login card (MINIMAL) */
         .bottom-section {
             flex: 1 1 40%;
             display: flex;
@@ -173,7 +173,7 @@ def render_login():
         }
         .login-wrapper {
             width: 90%;
-            max-width: 420px;
+            max-width: 380px;  /* slightly narrower for minimal look */
             opacity: 0;
             animation: cardRise 1.4s ease-out forwards;
             animation-delay: 4.0s;
@@ -191,6 +191,7 @@ def render_login():
             box-shadow: 0 30px 80px rgba(0,0,0,0.7), 0 0 30px rgba(240,192,64,0.05);
             position: relative;
             overflow: hidden;
+            text-align: center;
         }
         .login-card::before {
             content: '';
@@ -204,37 +205,30 @@ def render_login():
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-        .login-card h2 {
-            color: #fff;
-            font-weight: 300;
-            letter-spacing: 1px;
-            margin-bottom: 4px;
-            font-size: 24px;
-            position: relative;
-            z-index: 1;
-        }
-        .login-card h2 span { color: #f0c040; font-weight: 700; }
-        /* Contact info – replaces SYSTEM v3.0 */
+        /* Contact info – clean and centred */
         .contact-info {
-            color: rgba(255,255,255,0.5);
-            font-size: 13px;
-            margin-bottom: 25px;
+            color: #fff;
+            font-size: 18px;
+            line-height: 1.8;
+            position: relative;
+            z-index: 1;
             letter-spacing: 0.5px;
-            line-height: 1.6;
-            position: relative;
-            z-index: 1;
         }
-        .contact-info span {
-            display: block;
+        .contact-info .name {
+            font-size: 26px;
+            font-weight: 700;
+            color: #f0c040;
+            margin-bottom: 8px;
         }
-        .car-icon {
-            font-size: 32px;
-            display: block;
-            margin-bottom: 6px;
-            position: relative;
-            z-index: 1;
+        .contact-info .detail {
+            color: rgba(255,255,255,0.7);
+            font-weight: 300;
         }
-        /* Streamlit inputs override (keep consistent) */
+        .contact-info .detail span {
+            display: inline-block;
+            margin-right: 6px;
+        }
+        /* Streamlit inputs override */
         .stTextInput > div > div > input {
             background: rgba(255,255,255,0.06) !important;
             border: 1px solid rgba(255,255,255,0.1) !important;
@@ -287,15 +281,16 @@ def render_login():
             .company-title { font-size: clamp(24px, 4vw, 40px); }
             .company-sub { font-size: 12px; }
             .login-card { padding: 25px 20px 20px; }
-            .login-card h2 { font-size: 20px; }
-            .contact-info { font-size: 12px; margin-bottom: 18px; }
+            .contact-info .name { font-size: 22px; }
+            .contact-info { font-size: 16px; }
             .stTextInput > div > div > input { padding: 12px 16px; font-size: 14px; }
             .stButton > button { padding: 12px; font-size: 16px; }
         }
         @media (max-height: 600px) {
             .top-section { flex: 1 1 50%; }
             .bottom-section { flex: 1 1 50%; }
-            .car-icon { font-size: 24px; }
+            .contact-info .name { font-size: 18px; }
+            .contact-info { font-size: 14px; }
         }
     </style>
     """, unsafe_allow_html=True)
@@ -338,12 +333,10 @@ def render_login():
         <div class="bottom-section">
             <div class="login-wrapper">
                 <div class="login-card">
-                    <span class="car-icon">🚗</span>
-                    <h2>✨ <span>Ultimate</span> Attendance</h2>
                     <div class="contact-info">
-                        <span>👤 Ahmed Shawky</span>
-                        <span>📞 +201095214911</span>
-                        <span>✉️ ahmedshawkyqz@gmail.com</span>
+                        <div class="name">Ahmed Shawky</div>
+                        <div class="detail"><span>📞</span> +201095214911</div>
+                        <div class="detail"><span>✉️</span> ahmedshawkyqz@gmail.com</div>
                     </div>
     """, unsafe_allow_html=True)
 
