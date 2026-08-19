@@ -63,10 +63,10 @@ def render_login():
             pointer-events: none;
             z-index: 0;
         }
-        /* Cinematic title container */
+        /* Cinematic title container (positioned lower) */
         .title-container {
             position: fixed;
-            top: 12%;
+            top: 14%;
             left: 50%;
             transform: translateX(-50%);
             text-align: center;
@@ -79,48 +79,48 @@ def render_login():
             animation-delay: 3.2s;
         }
         .title-container .main {
-            font-size: clamp(40px, 8vw, 80px);
+            font-size: clamp(32px, 6vw, 72px);
             font-weight: 900;
             background: linear-gradient(90deg, #f0c040, #ffd700, #f0c040);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             text-shadow: 0 0 60px rgba(240,192,64,0.3), 0 4px 20px rgba(0,0,0,0.8);
-            letter-spacing: 0.15em;
+            letter-spacing: 0.1em;
             font-family: 'Impact', 'Arial Black', sans-serif;
             line-height: 1.1;
         }
         .title-container .sub {
-            font-size: clamp(14px, 2vw, 20px);
+            font-size: clamp(12px, 1.8vw, 18px);
             color: rgba(255,255,255,0.25);
-            letter-spacing: 0.5em;
-            margin-top: 6px;
+            letter-spacing: 0.4em;
+            margin-top: 4px;
             font-weight: 300;
             text-transform: uppercase;
             -webkit-text-fill-color: rgba(255,255,255,0.25);
         }
         .title-container .line {
-            width: 180px; height: 2px;
+            width: 160px; height: 2px;
             background: linear-gradient(90deg, transparent, #f0c040, transparent);
-            margin: 12px auto 0;
+            margin: 10px auto 0;
             opacity: 0.5;
         }
         @keyframes fadeInTitle {
             0% { opacity: 0; transform: translateX(-50%) scale(0.9); }
             100% { opacity: 1; transform: translateX(-50%) scale(1); }
         }
-        /* Animated DPSR letters */
+        /* Animated DPSR letters (moved lower) */
         .dpsr-container {
             position: fixed;
-            top: 18%;
+            top: 22%;
             left: 50%;
             transform: translateX(-50%);
             text-align: center;
             z-index: 4;
-            font-size: clamp(50px, 10vw, 100px);
+            font-size: clamp(40px, 8vw, 80px);
             font-weight: 900;
             color: #f0c040;
             text-shadow: 0 0 40px rgba(240,192,64,0.5);
-            letter-spacing: 0.2em;
+            letter-spacing: 0.15em;
             font-family: 'Impact', 'Arial Black', sans-serif;
             opacity: 0;
             animation: fadeInDPSR 1.5s ease-out forwards;
@@ -148,7 +148,7 @@ def render_login():
             0% { opacity: 0; }
             100% { opacity: 1; }
         }
-        /* Login box */
+        /* Login box – remains at 55% */
         .login-wrapper {
             position: fixed;
             top: 55%;
