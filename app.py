@@ -19,7 +19,7 @@ NORMAL_HOURS_TEMPORARY = 10
 RAMADAN_NORMAL_HOURS = 6
 
 # ============================================================
-# CINEMATIC LOGIN SCREEN
+# CINEMATIC LOGIN SCREEN (FIXED LAYOUT)
 # ============================================================
 def render_login():
     st.markdown("""
@@ -32,7 +32,163 @@ def render_login():
         .stApp > div:first-child {padding: 0 !important;}
         .st-emotion-cache-1r6slb0 {padding: 0 !important;}
         .st-emotion-cache-1gv3huu {padding: 0 !important;}
-        body {background: #0a0e1a; margin: 0; overflow: hidden;}
+        body {background: #0a0e1a; margin: 0; overflow: hidden; height: 100vh; width: 100vw;}
+        /* particles background */
+        #particles-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 0;
+            background: radial-gradient(ellipse at 30% 20%, #141f33, #070b12 80%);
+            overflow: hidden;
+        }
+        .particle {
+            position: absolute;
+            width: 4px; height: 4px;
+            background: rgba(255,215,0,0.3);
+            border-radius: 50%;
+            filter: blur(1px);
+            animation: float 6s infinite alternate ease-in-out;
+        }
+        @keyframes float {
+            0% { transform: translateY(0) scale(0.8); opacity: 0.2; }
+            100% { transform: translateY(-120px) scale(1.2); opacity: 0.8; }
+        }
+        .glow-orb {
+            position: fixed;
+            width: 300px; height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(240,192,64,0.06) 0%, transparent 70%);
+            top: 20%; right: 10%;
+            filter: blur(60px);
+            pointer-events: none;
+            z-index: 0;
+        }
+        /* Cinematic title container */
+        .title-container {
+            position: fixed;
+            top: 12%;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            z-index: 5;
+            width: 90%;
+            max-width: 800px;
+            pointer-events: none;
+            opacity: 0;
+            animation: fadeInTitle 1.6s ease-out forwards;
+            animation-delay: 3.2s;
+        }
+        .title-container .main {
+            font-size: clamp(40px, 8vw, 80px);
+            font-weight: 900;
+            background: linear-gradient(90deg, #f0c040, #ffd700, #f0c040);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 60px rgba(240,192,64,0.3), 0 4px 20px rgba(0,0,0,0.8);
+            letter-spacing: 0.15em;
+            font-family: 'Impact', 'Arial Black', sans-serif;
+            line-height: 1.1;
+        }
+        .title-container .sub {
+            font-size: clamp(14px, 2vw, 20px);
+            color: rgba(255,255,255,0.25);
+            letter-spacing: 0.5em;
+            margin-top: 6px;
+            font-weight: 300;
+            text-transform: uppercase;
+            -webkit-text-fill-color: rgba(255,255,255,0.25);
+        }
+        .title-container .line {
+            width: 180px; height: 2px;
+            background: linear-gradient(90deg, transparent, #f0c040, transparent);
+            margin: 12px auto 0;
+            opacity: 0.5;
+        }
+        @keyframes fadeInTitle {
+            0% { opacity: 0; transform: translateX(-50%) scale(0.9); }
+            100% { opacity: 1; transform: translateX(-50%) scale(1); }
+        }
+        /* Animated DPSR letters */
+        .dpsr-container {
+            position: fixed;
+            top: 18%;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            z-index: 4;
+            font-size: clamp(50px, 10vw, 100px);
+            font-weight: 900;
+            color: #f0c040;
+            text-shadow: 0 0 40px rgba(240,192,64,0.5);
+            letter-spacing: 0.2em;
+            font-family: 'Impact', 'Arial Black', sans-serif;
+            opacity: 0;
+            animation: fadeInDPSR 1.5s ease-out forwards;
+            animation-delay: 0.3s;
+            pointer-events: none;
+        }
+        .dpsr-container span {
+            display: inline-block;
+            opacity: 0;
+            animation: letterFly 1.5s ease-out forwards;
+        }
+        .dpsr-container span:nth-child(1) { animation-delay: 0.2s; transform: translateX(-200px) rotate(-20deg); }
+        .dpsr-container span:nth-child(2) { animation-delay: 0.5s; transform: translateX(-150px) rotate(20deg); }
+        .dpsr-container span:nth-child(3) { animation-delay: 0.8s; transform: translateX(150px) rotate(-15deg); }
+        .dpsr-container span:nth-child(4) { animation-delay: 1.1s; transform: translateX(200px) rotate(15deg); }
+        @keyframes letterFly {
+            0% { opacity: 0; transform: translateX(var(--tx)) rotate(var(--rot)); }
+            100% { opacity: 1; transform: translateX(0) rotate(0deg); }
+        }
+        .dpsr-container span:nth-child(1) { --tx: -200px; --rot: -20deg; }
+        .dpsr-container span:nth-child(2) { --tx: -150px; --rot: 20deg; }
+        .dpsr-container span:nth-child(3) { --tx: 150px; --rot: -15deg; }
+        .dpsr-container span:nth-child(4) { --tx: 200px; --rot: 15deg; }
+        @keyframes fadeInDPSR {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        /* Login box */
+        .login-wrapper {
+            position: fixed;
+            top: 55%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 420px;
+            z-index: 10;
+            text-align: center;
+            opacity: 0;
+            animation: fadeInUp 1.2s ease-out forwards;
+            animation-delay: 4.2s;
+        }
+        .login-box {
+            padding: 40px 30px 35px;
+            background: rgba(255,255,255,0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 28px;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.05);
+        }
+        .login-box h2 {
+            color: #fff;
+            font-weight: 300;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+            font-size: 22px;
+        }
+        .login-box h2 span { color: #f0c040; font-weight: 700; }
+        .login-box .sub {
+            color: rgba(255,255,255,0.15);
+            font-size: 13px;
+            margin-bottom: 28px;
+            letter-spacing: 6px;
+        }
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translate(-50%, 60%) scale(0.95); }
+            100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        }
+        /* Streamlit input overrides */
         .stTextInput > div > div > input {
             background: rgba(255,255,255,0.06) !important;
             border: 1px solid rgba(255,255,255,0.1) !important;
@@ -76,91 +232,42 @@ def render_login():
     </style>
     """, unsafe_allow_html=True)
 
-    st.markdown("""
-    <div id="particles-bg" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;background:radial-gradient(ellipse at 30% 20%, #141f33, #070b12 80%);overflow:hidden;"></div>
-    <style>
-        .particle {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: rgba(255,215,0,0.3);
-            border-radius: 50%;
-            filter: blur(1px);
-            animation: float 6s infinite alternate ease-in-out;
-        }
-        @keyframes float {
-            0% { transform: translateY(0) scale(0.8); opacity: 0.2; }
-            100% { transform: translateY(-120px) scale(1.2); opacity: 0.8; }
-        }
-        .glow-orb {
-            position: absolute;
-            width: 300px;
-            height: 300px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(240,192,64,0.06) 0%, transparent 70%);
-            top: 20%;
-            right: 10%;
-            filter: blur(60px);
-            pointer-events: none;
-        }
-    </style>
-    <div class="glow-orb"></div>
-    """, unsafe_allow_html=True)
+    # Background particles
+    st.markdown('<div id="particles-bg"></div>', unsafe_allow_html=True)
+    st.markdown('<div class="glow-orb"></div>', unsafe_allow_html=True)
 
+    # DPSR animated letters
     st.markdown("""
-    <div style="position:fixed;top:15%;left:50%;transform:translateX(-50%);text-align:center;z-index:5;width:80%;">
-        <div id="dpsr-container" style="font-size:80px;font-weight:900;color:#f0c040;text-shadow:0 0 40px rgba(240,192,64,0.5);letter-spacing:20px;font-family:'Impact','Arial Black',sans-serif;opacity:0;animation:fadeInDPSR 1.5s ease-out forwards;animation-delay:0.3s;">
-            <span style="display:inline-block;animation:moveLetterD 1.5s ease-out forwards;animation-delay:0.2s;">D</span>
-            <span style="display:inline-block;animation:moveLetterP 1.5s ease-out forwards;animation-delay:0.5s;">P</span>
-            <span style="display:inline-block;animation:moveLetterS 1.5s ease-out forwards;animation-delay:0.8s;">S</span>
-            <span style="display:inline-block;animation:moveLetterR 1.5s ease-out forwards;animation-delay:1.1s;">R</span>
-        </div>
-        <div id="company-name" style="font-size:42px;font-weight:900;background:linear-gradient(90deg,#f0c040,#ffd700,#f0c040);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-shadow:0 0 40px rgba(240,192,64,0.2);letter-spacing:8px;font-family:'Impact','Arial Black',sans-serif;opacity:0;animation:fadeInCompany 1.2s ease-out forwards;animation-delay:2.5s;margin-top:10px;">
-            Doosan Power Systems Arabia
-        </div>
-        <div style="width:200px;height:2px;background:linear-gradient(90deg,transparent,#f0c040,transparent);margin:10px auto 0;opacity:0;animation:fadeInCompany 1s ease-out forwards;animation-delay:2.8s;"></div>
+    <div class="dpsr-container">
+        <span>D</span>
+        <span>P</span>
+        <span>S</span>
+        <span>R</span>
     </div>
-    <style>
-        @keyframes moveLetterD {
-            0% { transform: translateX(-200px) rotate(-20deg); opacity: 0; }
-            100% { transform: translateX(0) rotate(0deg); opacity: 1; }
-        }
-        @keyframes moveLetterP {
-            0% { transform: translateX(-150px) rotate(20deg); opacity: 0; }
-            100% { transform: translateX(0) rotate(0deg); opacity: 1; }
-        }
-        @keyframes moveLetterS {
-            0% { transform: translateX(150px) rotate(-15deg); opacity: 0; }
-            100% { transform: translateX(0) rotate(0deg); opacity: 1; }
-        }
-        @keyframes moveLetterR {
-            0% { transform: translateX(200px) rotate(15deg); opacity: 0; }
-            100% { transform: translateX(0) rotate(0deg); opacity: 1; }
-        }
-        @keyframes fadeInDPSR {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
-        }
-        @keyframes fadeInCompany {
-            0% { opacity: 0; transform: translateY(20px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-    </style>
     """, unsafe_allow_html=True)
 
+    # Cinematic title
     st.markdown("""
-    <div style="position:fixed;top:55%;left:50%;transform:translate(-50%,-50%);width:420px;z-index:10;text-align:center;animation:fadeInUp 1.2s ease-out forwards;opacity:0;animation-delay:3.2s;">
-        <div style="padding:40px 35px 35px;background:rgba(255,255,255,0.03);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.06);border-radius:28px;box-shadow:0 30px 80px rgba(0,0,0,0.7),inset 0 1px 0 rgba(255,255,255,0.05);">
-            <div style="color:#fff;font-weight:300;letter-spacing:1px;margin-bottom:4px;font-size:22px;">
-                ✨ <span style="color:#f0c040;font-weight:700;">Ultimate</span> Attendance
-            </div>
-            <div style="color:rgba(255,255,255,0.15);font-size:13px;margin-bottom:28px;letter-spacing:6px;">SYSTEM v3.0</div>
+    <div class="title-container">
+        <div class="main">Doosan Power Systems Arabia</div>
+        <div class="sub">— ULTIMATE ATTENDANCE SYSTEM —</div>
+        <div class="line"></div>
+    </div>
     """, unsafe_allow_html=True)
 
+    # Login box
+    st.markdown('<div class="login-wrapper">', unsafe_allow_html=True)
+    st.markdown("""
+    <div class="login-box">
+        <h2>✨ <span>Ultimate</span> Attendance</h2>
+        <div class="sub">SYSTEM v3.0</div>
+    """, unsafe_allow_html=True)
+
+    # Streamlit login fields (labels now non‑empty)
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
-        username = st.text_input("", placeholder="👤 Username", key="login_username", label_visibility="collapsed")
-        password = st.text_input("", placeholder="🔑 Password", type="password", key="login_password", label_visibility="collapsed")
+        username = st.text_input("Username", placeholder="👤 Username", key="login_username", label_visibility="collapsed")
+        password = st.text_input("Password", placeholder="🔑 Password", type="password", key="login_password", label_visibility="collapsed")
         if st.button("🚀 Login", use_container_width=True):
             if username == "AhmedShawky" and password == "iloveshawky":
                 st.session_state.logged_in = True
@@ -168,17 +275,9 @@ def render_login():
             else:
                 st.error("❌ Invalid username or password.")
 
-    st.markdown("""
-        </div>
-    </div>
-    <style>
-        @keyframes fadeInUp {
-            0% { opacity: 0; transform: translate(-50%, 60%) scale(0.95); }
-            100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        }
-    </style>
-    """, unsafe_allow_html=True)
+    st.markdown('</div></div>', unsafe_allow_html=True)
 
+    # JavaScript for particles
     st.markdown("""
     <script>
         (function() {
@@ -203,7 +302,7 @@ def render_login():
 
 
 # ============================================================
-# MODE SELECTION AFTER LOGIN
+# MODE SELECTION
 # ============================================================
 def render_mode_selection():
     st.title("📊 Choose Your Attendance System")
@@ -237,7 +336,7 @@ def render_mode_selection():
 
 
 # ============================================================
-# MACHINE MODE FUNCTIONS (original)
+# MACHINE MODE FUNCTIONS
 # ============================================================
 def process_logs(logs_df):
     logs_df['DATE'] = pd.to_datetime(logs_df['DATE'])
@@ -265,7 +364,7 @@ def process_logs(logs_df):
 
 
 # ============================================================
-# BIO MODE FUNCTIONS (monthly matrix)
+# BIO MODE FUNCTIONS
 # ============================================================
 def process_monthly_matrix(file_bytes):
     df = pd.read_excel(io.BytesIO(file_bytes), header=0, dtype=str)
@@ -273,12 +372,12 @@ def process_monthly_matrix(file_bytes):
     try:
         col_id = header.index('Employee ID') if 'Employee ID' in header else header.index('Employee_ID')
     except ValueError:
-        st.error("Column 'Employee ID' not found. Please check the file format.")
+        st.error("Column 'Employee ID' not found.")
         return None, None
     try:
         col_name = header.index('First Name') if 'First Name' in header else header.index('First_Name')
     except ValueError:
-        st.error("Column 'First Name' not found. Please check the file format.")
+        st.error("Column 'First Name' not found.")
         return None, None
     try:
         col_dept = header.index('Department')
@@ -291,7 +390,6 @@ def process_monthly_matrix(file_bytes):
     start_date_col = col_dept + 1 if col_dept != -1 else 3
     end_date_col = col_regular if col_regular != len(header) else len(header)
     date_headers = header[start_date_col:end_date_col]
-    
     date_objs = []
     for h in date_headers:
         try:
@@ -303,7 +401,6 @@ def process_monthly_matrix(file_bytes):
                 date_objs.append(dt)
             except:
                 date_objs.append(None)
-    
     records = []
     employee_names = {}
     for idx, row in df.iterrows():
@@ -366,7 +463,7 @@ def enrich_attendance(df, break_start, break_end, break_duration_hours,
                       enable_ramadan=False, ramadan_start=None, ramadan_end=None):
     if df.empty:
         return df
-    
+
     df['EmployeeType'] = df['EmployeeID'].apply(assign_type)
     df['NormalHoursLimit'] = df.apply(
         lambda r: get_normal_hours(r['EmployeeID'], r['Date'], enable_ramadan, ramadan_start, ramadan_end), axis=1
@@ -620,10 +717,10 @@ def export_monthly_matrix(df, all_dates, start_date, end_date):
 
 
 # ============================================================
-# APP RENDER FUNCTIONS FOR EACH MODE
+# APP RENDER FUNCTIONS
 # ============================================================
 def render_machine_app():
-    st.title("📊 Ultimate Attendance & Settlement System")
+    st.title("📊 Machine Attendance System")
     st.markdown("Upload raw logs and settlement template – everything else is automatic.")
 
     st.sidebar.header("⚙️ Settings")
@@ -997,26 +1094,21 @@ def main():
         initial_sidebar_state="collapsed"
     )
 
-    # Initialize session state
     if "logged_in" not in st.session_state:
         st.session_state.logged_in = False
     if "app_mode" not in st.session_state:
         st.session_state.app_mode = None
 
-    # Show login screen if not logged in
     if not st.session_state.logged_in:
         render_login()
         return
 
-    # If logged in but no mode selected, show selection screen
     if st.session_state.app_mode is None:
         render_mode_selection()
         return
 
-    # Show the selected app
     st.set_page_config(initial_sidebar_state="expanded")
 
-    # Add a "Switch Mode" button in the sidebar
     with st.sidebar:
         if st.button("🔄 Switch Mode"):
             st.session_state.app_mode = None
