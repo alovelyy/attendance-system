@@ -19,7 +19,7 @@ NORMAL_HOURS_TEMPORARY = 10
 RAMADAN_NORMAL_HOURS = 6
 
 # ============================================================
-# LOGIN SCREEN (centred, exactly as described)
+# LOGIN SCREEN (without contact info)
 # ============================================================
 def render_login():
     st.markdown("""
@@ -237,35 +237,7 @@ def render_login():
             z-index: 1;
         }
         
-        /* ---- CONTACT INFO INSIDE CARD (left‑aligned, below button) ---- */
-        .contact-info {
-            margin-top: 18px;
-            padding-top: 14px;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            text-align: left;
-            position: relative;
-            z-index: 1;
-        }
-        .contact-info .line {
-            color: rgba(255,255,255,0.5);
-            font-size: 14px;
-            line-height: 1.8;
-            font-weight: 300;
-            letter-spacing: 0.3px;
-        }
-        .contact-info .line .icon {
-            display: inline-block;
-            width: 24px;
-            opacity: 0.4;
-        }
-        .contact-info .name-line {
-            color: #ffffff;
-            font-weight: 500;
-            font-size: 15px;
-        }
-        .contact-info .name-line .icon {
-            opacity: 0.6;
-        }
+        /* ---- NO CONTACT INFO INSIDE CARD ---- */
         
         /* Responsive */
         @media (max-height: 700px) {
@@ -275,18 +247,12 @@ def render_login():
             .login-card { padding: 20px 20px 16px; }
             .stTextInput > div > div > input { padding: 12px 16px; font-size: 14px; }
             .stButton > button { padding: 12px; font-size: 16px; }
-            .contact-info .line { font-size: 13px; }
-            .contact-info .name-line { font-size: 14px; }
-            .contact-info { margin-top: 12px; padding-top: 10px; }
         }
         @media (max-height: 600px) {
             .neon-dpsr { font-size: clamp(30px, 6vw, 45px); }
             .company-name { font-size: clamp(16px, 2.5vw, 24px); }
             .top-section { margin-bottom: 15px; }
             .login-card { padding: 14px 16px 12px; }
-            .contact-info .line { font-size: 12px; line-height: 1.5; }
-            .contact-info .name-line { font-size: 13px; }
-            .contact-info { margin-top: 8px; padding-top: 8px; }
         }
     </style>
     """, unsafe_allow_html=True)
@@ -341,11 +307,6 @@ def render_login():
                 st.error("❌ Invalid username or password.")
 
     st.markdown("""
-                <div class="contact-info">
-                    <div class="line name-line"><span class="icon">👤</span> Ahmed Shawky</div>
-                    <div class="line"><span class="icon">📞</span> +201095214911</div>
-                    <div class="line"><span class="icon">✉️</span> ahmedshawkyqz@gmail.com</div>
-                </div>
             </div>
         </div>
     </div>
