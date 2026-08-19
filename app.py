@@ -19,7 +19,7 @@ NORMAL_HOURS_TEMPORARY = 10
 RAMADAN_NORMAL_HOURS = 6
 
 # ============================================================
-# CINEMATIC LOGIN SCREEN (MINIMAL CARD)
+# CINEMATIC LOGIN SCREEN (CLEAN LAYOUT)
 # ============================================================
 def render_login():
     st.markdown("""
@@ -77,19 +77,19 @@ def render_login():
             justify-content: center;
             align-items: center;
             z-index: 5;
-            pointer-events: none; /* allow clicks on inputs/buttons inside children */
+            pointer-events: none;
         }
         .login-container > * { pointer-events: auto; }
         
-        /* Top section: DPSR + title */
+        /* ---- TOP SECTION: DPSR + Title ---- */
         .top-section {
-            flex: 1 1 60%;
+            flex: 1 1 55%;
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
             align-items: center;
             text-align: center;
-            padding-bottom: 20px;
+            padding-bottom: 10px;
             width: 100%;
         }
         .dpsr-letters {
@@ -161,37 +161,35 @@ def render_login():
             100% { opacity: 1; transform: translateY(0); }
         }
         
-        /* Bottom section: login card (MINIMAL) */
-        .bottom-section {
-            flex: 1 1 40%;
+        /* ---- MIDDLE SECTION: Login Form ---- */
+        .middle-section {
+            flex: 0 1 auto;
             display: flex;
             flex-direction: column;
-            justify-content: flex-start;
             align-items: center;
             width: 100%;
-            padding-top: 20px;
+            padding: 8px 0;
         }
         .login-wrapper {
             width: 90%;
-            max-width: 380px;  /* slightly narrower for minimal look */
+            max-width: 380px;
             opacity: 0;
             animation: cardRise 1.4s ease-out forwards;
             animation-delay: 4.0s;
         }
         @keyframes cardRise {
-            0% { opacity: 0; transform: translateY(30px) scale(0.95); }
+            0% { opacity: 0; transform: translateY(20px) scale(0.95); }
             100% { opacity: 1; transform: translateY(0) scale(1); }
         }
         .login-card {
-            padding: 35px 30px 30px;
+            padding: 25px 30px 20px;
             background: rgba(20, 30, 50, 0.5);
             backdrop-filter: blur(18px);
-            border: 1px solid rgba(255,215,0,0.15);
-            border-radius: 30px;
-            box-shadow: 0 30px 80px rgba(0,0,0,0.7), 0 0 30px rgba(240,192,64,0.05);
+            border: 1px solid rgba(255,215,0,0.12);
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.7);
             position: relative;
             overflow: hidden;
-            text-align: center;
         }
         .login-card::before {
             content: '';
@@ -204,29 +202,6 @@ def render_login():
         @keyframes spinGlow {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
-        }
-        /* Contact info – clean and centred */
-        .contact-info {
-            color: #fff;
-            font-size: 18px;
-            line-height: 1.8;
-            position: relative;
-            z-index: 1;
-            letter-spacing: 0.5px;
-        }
-        .contact-info .name {
-            font-size: 26px;
-            font-weight: 700;
-            color: #f0c040;
-            margin-bottom: 8px;
-        }
-        .contact-info .detail {
-            color: rgba(255,255,255,0.7);
-            font-weight: 300;
-        }
-        .contact-info .detail span {
-            display: inline-block;
-            margin-right: 6px;
         }
         /* Streamlit inputs override */
         .stTextInput > div > div > input {
@@ -254,7 +229,7 @@ def render_login():
             font-size: 18px !important;
             font-weight: 700 !important;
             padding: 14px !important;
-            margin-top: 18px !important;
+            margin-top: 14px !important;
             box-shadow: 0 8px 30px rgba(240,192,64,0.25) !important;
             transition: all 0.3s !important;
             position: relative;
@@ -270,27 +245,80 @@ def render_login():
             border-radius: 12px !important;
             color: #ff6b6b !important;
             padding: 10px 20px !important;
-            margin-top: 12px !important;
+            margin-top: 10px !important;
             font-size: 14px !important;
             position: relative;
             z-index: 1;
         }
+        
+        /* ---- BOTTOM SECTION: Contact Info Card ---- */
+        .bottom-section {
+            flex: 1 1 30%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            width: 100%;
+            padding-top: 6px;
+        }
+        .contact-wrapper {
+            width: 90%;
+            max-width: 380px;
+            opacity: 0;
+            animation: cardRise 1.4s ease-out forwards;
+            animation-delay: 4.3s;
+        }
+        .contact-card {
+            padding: 15px 25px 15px;
+            background: rgba(20, 30, 50, 0.4);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            text-align: left;
+        }
+        .contact-info {
+            color: rgba(255,255,255,0.7);
+            font-size: 15px;
+            line-height: 1.8;
+            position: relative;
+            z-index: 1;
+            font-weight: 300;
+            letter-spacing: 0.3px;
+        }
+        .contact-info .name {
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 17px;
+            margin-bottom: 2px;
+        }
+        .contact-info .detail {
+            color: rgba(255,255,255,0.55);
+        }
+        .contact-info .detail span {
+            display: inline-block;
+            margin-right: 8px;
+            opacity: 0.5;
+        }
+        
         /* Responsive tweaks */
         @media (max-height: 700px) {
             .dpsr-letters { font-size: clamp(40px, 8vw, 60px); }
             .company-title { font-size: clamp(24px, 4vw, 40px); }
             .company-sub { font-size: 12px; }
-            .login-card { padding: 25px 20px 20px; }
-            .contact-info .name { font-size: 22px; }
-            .contact-info { font-size: 16px; }
+            .login-card { padding: 20px 20px 16px; }
             .stTextInput > div > div > input { padding: 12px 16px; font-size: 14px; }
-            .stButton > button { padding: 12px; font-size: 16px; }
+            .stButton > button { padding: 12px; font-size: 16px; margin-top: 10px; }
+            .contact-card { padding: 12px 20px 12px; }
+            .contact-info { font-size: 13px; }
+            .contact-info .name { font-size: 15px; }
         }
         @media (max-height: 600px) {
-            .top-section { flex: 1 1 50%; }
-            .bottom-section { flex: 1 1 50%; }
-            .contact-info .name { font-size: 18px; }
-            .contact-info { font-size: 14px; }
+            .top-section { flex: 1 1 45%; }
+            .bottom-section { flex: 1 1 25%; }
+            .dpsr-letters { font-size: clamp(30px, 6vw, 45px); }
+            .company-title { font-size: clamp(20px, 3vw, 30px); }
+            .login-card { padding: 14px 16px 12px; }
         }
     </style>
     """, unsafe_allow_html=True)
@@ -319,7 +347,7 @@ def render_login():
     </script>
     """, unsafe_allow_html=True)
 
-    # ---- Flexible container ----
+    # ---- TOP SECTION ----
     st.markdown("""
     <div class="login-container">
         <div class="top-section">
@@ -330,17 +358,15 @@ def render_login():
             <div class="company-sub">— ULTIMATE ATTENDANCE SYSTEM —</div>
             <div class="title-divider"></div>
         </div>
-        <div class="bottom-section">
-            <div class="login-wrapper">
-                <div class="login-card">
-                    <div class="contact-info">
-                        <div class="name">Ahmed Shawky</div>
-                        <div class="detail"><span>📞</span> +201095214911</div>
-                        <div class="detail"><span>✉️</span> ahmedshawkyqz@gmail.com</div>
-                    </div>
     """, unsafe_allow_html=True)
 
-    # ---- Streamlit fields ----
+    # ---- MIDDLE SECTION: Login Form ----
+    st.markdown("""
+        <div class="middle-section">
+            <div class="login-wrapper">
+                <div class="login-card">
+    """, unsafe_allow_html=True)
+
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
         username = st.text_input("Username", placeholder="👤 Username", key="login_username", label_visibility="collapsed")
@@ -353,6 +379,21 @@ def render_login():
                 st.error("❌ Invalid username or password.")
 
     st.markdown("""
+                </div>
+            </div>
+        </div>
+    """, unsafe_allow_html=True)
+
+    # ---- BOTTOM SECTION: Contact Info ----
+    st.markdown("""
+        <div class="bottom-section">
+            <div class="contact-wrapper">
+                <div class="contact-card">
+                    <div class="contact-info">
+                        <div class="name">Ahmed Shawky</div>
+                        <div class="detail"><span>📞</span> +201095214911</div>
+                        <div class="detail"><span>✉️</span> ahmedshawkyqz@gmail.com</div>
+                    </div>
                 </div>
             </div>
         </div>
