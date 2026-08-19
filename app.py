@@ -19,7 +19,7 @@ NORMAL_HOURS_TEMPORARY = 10
 RAMADAN_NORMAL_HOURS = 6
 
 # ============================================================
-# FUTURISTIC LOGIN SCREEN (with contact info inside card)
+# FUTURISTIC LOGIN (bottom‑aligned card)
 # ============================================================
 def render_login():
     st.markdown("""
@@ -83,24 +83,26 @@ def render_login():
             100% { opacity: 0.8; transform: scale(1.2); }
         }
         
-        /* ---- FLEX CONTAINER ---- */
+        /* ---- NEW LAYOUT: bottom‑aligned card ---- */
         .login-container {
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: space-between;  /* pushes card to bottom */
             align-items: center;
             z-index: 5;
             pointer-events: none;
+            padding: 20px 0 30px;
         }
         .login-container > * { pointer-events: auto; }
         
-        /* ---- TITLE SECTION ---- */
-        .title-section {
+        /* ---- TOP SECTION (title) ---- */
+        .top-section {
+            flex: 0 1 auto;
             text-align: center;
-            margin-bottom: 25px;
+            margin-top: 20px;
             opacity: 0;
             animation: fadeUp 1.8s ease-out forwards;
             animation-delay: 0.5s;
@@ -143,16 +145,18 @@ def render_login():
             100% { opacity: 1; transform: translateY(0); }
         }
         
-        /* ---- LOGIN CARD (with contact info inside) ---- */
-        .login-wrapper {
+        /* ---- BOTTOM SECTION (login card) ---- */
+        .bottom-section {
+            flex: 0 1 auto;
             width: 90%;
             max-width: 400px;
+            margin-bottom: 10px;
             opacity: 0;
             animation: cardRise 1.4s ease-out forwards;
             animation-delay: 1.8s;
         }
         @keyframes cardRise {
-            0% { opacity: 0; transform: translateY(40px) scale(0.95); }
+            0% { opacity: 0; transform: translateY(30px) scale(0.95); }
             100% { opacity: 1; transform: translateY(0) scale(1); }
         }
         .login-card {
@@ -237,7 +241,7 @@ def render_login():
             z-index: 1;
         }
         
-        /* ---- CONTACT INFO INSIDE CARD (left-aligned, like sidebar) ---- */
+        /* ---- CONTACT INFO INSIDE CARD (left‑aligned) ---- */
         .contact-info {
             margin-top: 18px;
             padding-top: 14px;
@@ -278,20 +282,22 @@ def render_login():
             .contact-info .line { font-size: 13px; }
             .contact-info .name-line { font-size: 14px; }
             .contact-info { margin-top: 12px; padding-top: 10px; }
+            .bottom-section { margin-bottom: 5px; }
         }
         @media (max-height: 600px) {
             .neon-dpsr { font-size: clamp(30px, 6vw, 45px); }
             .company-name { font-size: clamp(16px, 2.5vw, 24px); }
-            .title-section { margin-bottom: 12px; }
+            .top-section { margin-top: 5px; }
             .login-card { padding: 14px 16px 12px; }
             .contact-info .line { font-size: 12px; line-height: 1.5; }
             .contact-info .name-line { font-size: 13px; }
             .contact-info { margin-top: 8px; padding-top: 8px; }
+            .bottom-section { margin-bottom: 0; }
         }
     </style>
     """, unsafe_allow_html=True)
 
-    # ---- Background: mesh orbs + particles ----
+    # Background orbs + particles
     st.markdown("""
     <div id="mesh-bg">
         <div class="mesh-orb"></div>
@@ -316,20 +322,16 @@ def render_login():
     </script>
     """, unsafe_allow_html=True)
 
-    # ---- Title Section ----
+    # Top title + bottom card
     st.markdown("""
     <div class="login-container">
-        <div class="title-section">
+        <div class="top-section">
             <div class="neon-dpsr">DPSR</div>
             <div class="company-name">Doosan Power Systems Arabia</div>
             <div class="company-sub">— ULTIMATE ATTENDANCE SYSTEM —</div>
             <div class="title-divider"></div>
         </div>
-    """, unsafe_allow_html=True)
-
-    # ---- Login Card with Contact Info Inside ----
-    st.markdown("""
-        <div class="login-wrapper">
+        <div class="bottom-section">
             <div class="login-card">
     """, unsafe_allow_html=True)
 
@@ -344,7 +346,6 @@ def render_login():
             else:
                 st.error("❌ Invalid username or password.")
 
-    # ---- Contact Info inside the card (left-aligned, same as sidebar) ----
     st.markdown("""
                 <div class="contact-info">
                     <div class="line name-line"><span class="icon">👤</span> Ahmed Shawky</div>
@@ -498,7 +499,7 @@ def process_monthly_matrix(file_bytes):
 
 
 # ============================================================
-# COMMON ENRICHMENT & REPORT FUNCTIONS
+# COMMON FUNCTIONS
 # ============================================================
 def assign_type(emp_id):
     return 'Permanent' if str(emp_id).startswith('100') else 'Temporary' if str(emp_id).startswith('200') else 'Unknown'
