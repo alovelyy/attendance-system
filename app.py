@@ -214,13 +214,18 @@ def render_login():
             z-index: 1;
         }
         .login-card h2 span { color: #f0c040; font-weight: 700; }
-        .login-card .sub {
-            color: rgba(255,255,255,0.2);
+        /* Contact info – replaces SYSTEM v3.0 */
+        .contact-info {
+            color: rgba(255,255,255,0.5);
             font-size: 13px;
             margin-bottom: 25px;
-            letter-spacing: 6px;
+            letter-spacing: 0.5px;
+            line-height: 1.6;
             position: relative;
             z-index: 1;
+        }
+        .contact-info span {
+            display: block;
         }
         .car-icon {
             font-size: 32px;
@@ -283,7 +288,7 @@ def render_login():
             .company-sub { font-size: 12px; }
             .login-card { padding: 25px 20px 20px; }
             .login-card h2 { font-size: 20px; }
-            .login-card .sub { font-size: 11px; margin-bottom: 18px; }
+            .contact-info { font-size: 12px; margin-bottom: 18px; }
             .stTextInput > div > div > input { padding: 12px 16px; font-size: 14px; }
             .stButton > button { padding: 12px; font-size: 16px; }
         }
@@ -335,7 +340,11 @@ def render_login():
                 <div class="login-card">
                     <span class="car-icon">🚗</span>
                     <h2>✨ <span>Ultimate</span> Attendance</h2>
-                    <div class="sub">SYSTEM v3.0</div>
+                    <div class="contact-info">
+                        <span>👤 Ahmed Shawky</span>
+                        <span>📞 +201095214911</span>
+                        <span>✉️ ahmedshawkyqz@gmail.com</span>
+                    </div>
     """, unsafe_allow_html=True)
 
     # ---- Streamlit fields ----
