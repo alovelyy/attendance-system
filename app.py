@@ -19,7 +19,7 @@ NORMAL_HOURS_TEMPORARY = 10
 RAMADAN_NORMAL_HOURS = 6
 
 # ============================================================
-# FUTURISTIC LOGIN SCREEN (NEW DESIGN)
+# FUTURISTIC LOGIN SCREEN (with contact info inside card)
 # ============================================================
 def render_login():
     st.markdown("""
@@ -97,16 +97,16 @@ def render_login():
         }
         .login-container > * { pointer-events: auto; }
         
-        /* ---- TITLE SECTION (Neon DPSR) ---- */
+        /* ---- TITLE SECTION ---- */
         .title-section {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             opacity: 0;
             animation: fadeUp 1.8s ease-out forwards;
             animation-delay: 0.5s;
         }
         .neon-dpsr {
-            font-size: clamp(60px, 12vw, 110px);
+            font-size: clamp(50px, 10vw, 90px);
             font-weight: 900;
             color: #f0c040;
             text-shadow: 0 0 30px rgba(240,192,64,0.3), 0 0 60px rgba(240,192,64,0.1);
@@ -119,7 +119,7 @@ def render_login():
             100% { text-shadow: 0 0 40px rgba(240,192,64,0.6), 0 0 80px rgba(240,192,64,0.2); }
         }
         .company-name {
-            font-size: clamp(24px, 4vw, 48px);
+            font-size: clamp(22px, 3.5vw, 42px);
             font-weight: 700;
             color: #fff;
             letter-spacing: 0.15em;
@@ -127,7 +127,7 @@ def render_login():
             margin-top: -6px;
         }
         .company-sub {
-            font-size: clamp(14px, 1.8vw, 20px);
+            font-size: clamp(12px, 1.6vw, 18px);
             color: rgba(255,255,255,0.3);
             letter-spacing: 0.5em;
             font-weight: 300;
@@ -143,7 +143,7 @@ def render_login():
             100% { opacity: 1; transform: translateY(0); }
         }
         
-        /* ---- LOGIN CARD (Glass + Glow Border) ---- */
+        /* ---- LOGIN CARD (with contact info inside) ---- */
         .login-wrapper {
             width: 90%;
             max-width: 400px;
@@ -156,7 +156,7 @@ def render_login():
             100% { opacity: 1; transform: translateY(0) scale(1); }
         }
         .login-card {
-            padding: 30px 30px 25px;
+            padding: 30px 30px 20px;
             background: rgba(10, 14, 26, 0.6);
             backdrop-filter: blur(20px);
             border: 1px solid rgba(255,215,0,0.15);
@@ -183,7 +183,7 @@ def render_login():
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-        /* Streamlit inputs override */
+        /* Streamlit inputs */
         .stTextInput > div > div > input {
             background: rgba(255,255,255,0.05) !important;
             border: 1px solid rgba(255,255,255,0.08) !important;
@@ -209,7 +209,7 @@ def render_login():
             font-size: 18px !important;
             font-weight: 700 !important;
             padding: 14px !important;
-            margin-top: 16px !important;
+            margin-top: 14px !important;
             box-shadow: 0 8px 30px rgba(240,192,64,0.25) !important;
             transition: all 0.3s !important;
             position: relative;
@@ -237,39 +237,34 @@ def render_login():
             z-index: 1;
         }
         
-        /* ---- CONTACT CARD (Minimal) ---- */
-        .contact-wrapper {
-            width: 90%;
-            max-width: 400px;
-            margin-top: 20px;
-            opacity: 0;
-            animation: cardRise 1.4s ease-out forwards;
-            animation-delay: 2.2s;
-        }
-        .contact-card {
-            padding: 12px 20px 12px;
-            background: rgba(10, 14, 26, 0.4);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255,255,255,0.04);
-            border-radius: 16px;
-            text-align: left;
-        }
+        /* ---- CONTACT INFO INSIDE CARD (left-aligned, like sidebar) ---- */
         .contact-info {
+            margin-top: 18px;
+            padding-top: 14px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            text-align: left;
+            position: relative;
+            z-index: 1;
+        }
+        .contact-info .line {
             color: rgba(255,255,255,0.5);
             font-size: 14px;
-            line-height: 1.7;
+            line-height: 1.8;
             font-weight: 300;
             letter-spacing: 0.3px;
         }
-        .contact-info .name {
+        .contact-info .line .icon {
+            display: inline-block;
+            width: 24px;
+            opacity: 0.4;
+        }
+        .contact-info .name-line {
             color: #ffffff;
             font-weight: 500;
-            font-size: 16px;
+            font-size: 15px;
         }
-        .contact-info .detail span {
-            display: inline-block;
-            margin-right: 8px;
-            opacity: 0.4;
+        .contact-info .name-line .icon {
+            opacity: 0.6;
         }
         
         /* Responsive */
@@ -280,16 +275,18 @@ def render_login():
             .login-card { padding: 20px 20px 16px; }
             .stTextInput > div > div > input { padding: 12px 16px; font-size: 14px; }
             .stButton > button { padding: 12px; font-size: 16px; }
-            .contact-card { padding: 10px 16px 10px; }
-            .contact-info { font-size: 13px; }
-            .contact-info .name { font-size: 14px; }
+            .contact-info .line { font-size: 13px; }
+            .contact-info .name-line { font-size: 14px; }
+            .contact-info { margin-top: 12px; padding-top: 10px; }
         }
         @media (max-height: 600px) {
             .neon-dpsr { font-size: clamp(30px, 6vw, 45px); }
             .company-name { font-size: clamp(16px, 2.5vw, 24px); }
-            .title-section { margin-bottom: 15px; }
+            .title-section { margin-bottom: 12px; }
             .login-card { padding: 14px 16px 12px; }
-            .contact-wrapper { margin-top: 10px; }
+            .contact-info .line { font-size: 12px; line-height: 1.5; }
+            .contact-info .name-line { font-size: 13px; }
+            .contact-info { margin-top: 8px; padding-top: 8px; }
         }
     </style>
     """, unsafe_allow_html=True)
@@ -330,7 +327,7 @@ def render_login():
         </div>
     """, unsafe_allow_html=True)
 
-    # ---- Login Card ----
+    # ---- Login Card with Contact Info Inside ----
     st.markdown("""
         <div class="login-wrapper">
             <div class="login-card">
@@ -347,19 +344,12 @@ def render_login():
             else:
                 st.error("❌ Invalid username or password.")
 
+    # ---- Contact Info inside the card (left-aligned, same as sidebar) ----
     st.markdown("""
-            </div>
-        </div>
-    """, unsafe_allow_html=True)
-
-    # ---- Contact Card ----
-    st.markdown("""
-        <div class="contact-wrapper">
-            <div class="contact-card">
                 <div class="contact-info">
-                    <div class="name">Ahmed Shawky</div>
-                    <div class="detail"><span>📞</span> +201095214911</div>
-                    <div class="detail"><span>✉️</span> ahmedshawkyqz@gmail.com</div>
+                    <div class="line name-line"><span class="icon">👤</span> Ahmed Shawky</div>
+                    <div class="line"><span class="icon">📞</span> +201095214911</div>
+                    <div class="line"><span class="icon">✉️</span> ahmedshawkyqz@gmail.com</div>
                 </div>
             </div>
         </div>
