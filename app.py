@@ -19,7 +19,7 @@ NORMAL_HOURS_TEMPORARY = 10
 RAMADAN_NORMAL_HOURS = 6
 
 # ============================================================
-# CINEMATIC LOGIN SCREEN (FIXED LAYOUT)
+# CINEMATIC LOGIN SCREEN (NEW DESIGN)
 # ============================================================
 def render_login():
     st.markdown("""
@@ -33,40 +33,44 @@ def render_login():
         .st-emotion-cache-1r6slb0 {padding: 0 !important;}
         .st-emotion-cache-1gv3huu {padding: 0 !important;}
         body {background: #0a0e1a; margin: 0; overflow: hidden; height: 100vh; width: 100vw;}
-        /* particles background */
-        #particles-bg {
+        
+        /* ---- BACKGROUND: nebula + particles ---- */
+        #nebula {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             z-index: 0;
-            background: radial-gradient(ellipse at 30% 20%, #141f33, #070b12 80%);
+            background: radial-gradient(ellipse at 20% 30%, #1a2a4a, #070b12 80%);
             overflow: hidden;
+        }
+        .nebula-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.3;
+            animation: floatBlob 20s infinite alternate ease-in-out;
+        }
+        .nebula-blob:nth-child(1) { width: 500px; height: 500px; top: -10%; left: -10%; background: #f0c040; }
+        .nebula-blob:nth-child(2) { width: 400px; height: 400px; bottom: -10%; right: -10%; background: #4a6a9a; animation-delay: 5s; }
+        @keyframes floatBlob {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(50px, 30px) scale(1.1); }
         }
         .particle {
             position: absolute;
-            width: 4px; height: 4px;
-            background: rgba(255,215,0,0.3);
+            width: 3px; height: 3px;
+            background: rgba(255,255,255,0.5);
             border-radius: 50%;
-            filter: blur(1px);
-            animation: float 6s infinite alternate ease-in-out;
+            animation: twinkle 4s infinite alternate;
         }
-        @keyframes float {
-            0% { transform: translateY(0) scale(0.8); opacity: 0.2; }
-            100% { transform: translateY(-120px) scale(1.2); opacity: 0.8; }
+        @keyframes twinkle {
+            0% { opacity: 0.1; transform: scale(0.8); }
+            100% { opacity: 0.8; transform: scale(1.2); }
         }
-        .glow-orb {
+        
+        /* ---- DPSR + TITLE (cinematic) ---- */
+        .cinematic-wrapper {
             position: fixed;
-            width: 300px; height: 300px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(240,192,64,0.06) 0%, transparent 70%);
-            top: 20%; right: 10%;
-            filter: blur(60px);
-            pointer-events: none;
-            z-index: 0;
-        }
-        /* Cinematic title container (positioned lower) */
-        .title-container {
-            position: fixed;
-            top: 14%;
+            top: 18%;
             left: 50%;
             transform: translateX(-50%);
             text-align: center;
@@ -74,81 +78,77 @@ def render_login():
             width: 90%;
             max-width: 800px;
             pointer-events: none;
-            opacity: 0;
-            animation: fadeInTitle 1.6s ease-out forwards;
-            animation-delay: 3.2s;
         }
-        .title-container .main {
-            font-size: clamp(32px, 6vw, 72px);
+        .dpsr-letters {
+            font-size: clamp(50px, 10vw, 90px);
+            font-weight: 900;
+            color: #f0c040;
+            text-shadow: 0 0 60px rgba(240,192,64,0.6), 0 0 120px rgba(240,192,64,0.3);
+            letter-spacing: 0.2em;
+            font-family: 'Impact', 'Arial Black', sans-serif;
+            opacity: 0;
+            animation: dpsrAppear 2s ease-out forwards;
+            animation-delay: 0.3s;
+        }
+        .dpsr-letters span {
+            display: inline-block;
+            opacity: 0;
+            animation: letterSlide 1.8s ease-out forwards;
+        }
+        .dpsr-letters span:nth-child(1) { animation-delay: 0.2s; transform: translateX(-300px) rotate(-25deg); }
+        .dpsr-letters span:nth-child(2) { animation-delay: 0.5s; transform: translateX(-200px) rotate(25deg); }
+        .dpsr-letters span:nth-child(3) { animation-delay: 0.8s; transform: translateX(200px) rotate(-20deg); }
+        .dpsr-letters span:nth-child(4) { animation-delay: 1.1s; transform: translateX(300px) rotate(20deg); }
+        @keyframes letterSlide {
+            0% { opacity: 0; transform: translateX(var(--tx)) rotate(var(--rot)); }
+            100% { opacity: 1; transform: translateX(0) rotate(0deg); }
+        }
+        .dpsr-letters span:nth-child(1) { --tx: -300px; --rot: -25deg; }
+        .dpsr-letters span:nth-child(2) { --tx: -200px; --rot: 25deg; }
+        .dpsr-letters span:nth-child(3) { --tx: 200px; --rot: -20deg; }
+        .dpsr-letters span:nth-child(4) { --tx: 300px; --rot: 20deg; }
+        @keyframes dpsrAppear {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        .company-title {
+            font-size: clamp(28px, 5vw, 56px);
             font-weight: 900;
             background: linear-gradient(90deg, #f0c040, #ffd700, #f0c040);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 60px rgba(240,192,64,0.3), 0 4px 20px rgba(0,0,0,0.8);
+            text-shadow: 0 0 40px rgba(240,192,64,0.2);
             letter-spacing: 0.1em;
             font-family: 'Impact', 'Arial Black', sans-serif;
-            line-height: 1.1;
+            opacity: 0;
+            animation: fadeUp 1.2s ease-out forwards;
+            animation-delay: 2.8s;
+            margin-top: 10px;
         }
-        .title-container .sub {
-            font-size: clamp(12px, 1.8vw, 18px);
-            color: rgba(255,255,255,0.25);
-            letter-spacing: 0.4em;
-            margin-top: 4px;
+        .company-sub {
+            font-size: clamp(12px, 1.6vw, 18px);
+            color: rgba(255,255,255,0.3);
+            letter-spacing: 0.5em;
             font-weight: 300;
-            text-transform: uppercase;
-            -webkit-text-fill-color: rgba(255,255,255,0.25);
+            opacity: 0;
+            animation: fadeUp 1s ease-out forwards;
+            animation-delay: 3.2s;
+            margin-top: 4px;
         }
-        .title-container .line {
-            width: 160px; height: 2px;
+        .title-divider {
+            width: 140px; height: 2px;
             background: linear-gradient(90deg, transparent, #f0c040, transparent);
             margin: 10px auto 0;
-            opacity: 0.5;
-        }
-        @keyframes fadeInTitle {
-            0% { opacity: 0; transform: translateX(-50%) scale(0.9); }
-            100% { opacity: 1; transform: translateX(-50%) scale(1); }
-        }
-        /* Animated DPSR letters (moved lower) */
-        .dpsr-container {
-            position: fixed;
-            top: 22%;
-            left: 50%;
-            transform: translateX(-50%);
-            text-align: center;
-            z-index: 4;
-            font-size: clamp(40px, 8vw, 80px);
-            font-weight: 900;
-            color: #f0c040;
-            text-shadow: 0 0 40px rgba(240,192,64,0.5);
-            letter-spacing: 0.15em;
-            font-family: 'Impact', 'Arial Black', sans-serif;
             opacity: 0;
-            animation: fadeInDPSR 1.5s ease-out forwards;
-            animation-delay: 0.3s;
-            pointer-events: none;
+            animation: fadeUp 1s ease-out forwards;
+            animation-delay: 3.4s;
         }
-        .dpsr-container span {
-            display: inline-block;
-            opacity: 0;
-            animation: letterFly 1.5s ease-out forwards;
+        @keyframes fadeUp {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
-        .dpsr-container span:nth-child(1) { animation-delay: 0.2s; transform: translateX(-200px) rotate(-20deg); }
-        .dpsr-container span:nth-child(2) { animation-delay: 0.5s; transform: translateX(-150px) rotate(20deg); }
-        .dpsr-container span:nth-child(3) { animation-delay: 0.8s; transform: translateX(150px) rotate(-15deg); }
-        .dpsr-container span:nth-child(4) { animation-delay: 1.1s; transform: translateX(200px) rotate(15deg); }
-        @keyframes letterFly {
-            0% { opacity: 0; transform: translateX(var(--tx)) rotate(var(--rot)); }
-            100% { opacity: 1; transform: translateX(0) rotate(0deg); }
-        }
-        .dpsr-container span:nth-child(1) { --tx: -200px; --rot: -20deg; }
-        .dpsr-container span:nth-child(2) { --tx: -150px; --rot: 20deg; }
-        .dpsr-container span:nth-child(3) { --tx: 150px; --rot: -15deg; }
-        .dpsr-container span:nth-child(4) { --tx: 200px; --rot: 15deg; }
-        @keyframes fadeInDPSR {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
-        }
-        /* Login box – remains at 55% */
+        
+        /* ---- LOGIN CARD (glassmorphism) ---- */
         .login-wrapper {
             position: fixed;
             top: 55%;
@@ -157,38 +157,63 @@ def render_login():
             width: 90%;
             max-width: 420px;
             z-index: 10;
-            text-align: center;
             opacity: 0;
-            animation: fadeInUp 1.2s ease-out forwards;
-            animation-delay: 4.2s;
+            animation: cardRise 1.4s ease-out forwards;
+            animation-delay: 4.0s;
         }
-        .login-box {
+        @keyframes cardRise {
+            0% { opacity: 0; transform: translate(-50%, 60%) scale(0.95); }
+            100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        }
+        .login-card {
             padding: 40px 30px 35px;
-            background: rgba(255,255,255,0.03);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255,255,255,0.06);
-            border-radius: 28px;
-            box-shadow: 0 30px 80px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.05);
+            background: rgba(20, 30, 50, 0.5);
+            backdrop-filter: blur(18px);
+            border: 1px solid rgba(255,215,0,0.15);
+            border-radius: 30px;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.7), 0 0 30px rgba(240,192,64,0.05);
+            position: relative;
+            overflow: hidden;
         }
-        .login-box h2 {
+        .login-card::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(240,192,64,0.03), transparent 60%);
+            animation: spinGlow 10s linear infinite;
+        }
+        @keyframes spinGlow {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .login-card h2 {
             color: #fff;
             font-weight: 300;
             letter-spacing: 1px;
             margin-bottom: 4px;
-            font-size: 22px;
+            font-size: 24px;
+            position: relative;
+            z-index: 1;
         }
-        .login-box h2 span { color: #f0c040; font-weight: 700; }
-        .login-box .sub {
-            color: rgba(255,255,255,0.15);
+        .login-card h2 span { color: #f0c040; font-weight: 700; }
+        .login-card .sub {
+            color: rgba(255,255,255,0.2);
             font-size: 13px;
-            margin-bottom: 28px;
+            margin-bottom: 30px;
             letter-spacing: 6px;
+            position: relative;
+            z-index: 1;
         }
-        @keyframes fadeInUp {
-            0% { opacity: 0; transform: translate(-50%, 60%) scale(0.95); }
-            100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        /* Car icon (steering wheel) */
+        .car-icon {
+            font-size: 32px;
+            display: block;
+            margin-bottom: 8px;
+            position: relative;
+            z-index: 1;
         }
-        /* Streamlit input overrides */
+        /* Streamlit inputs override (keep consistent) */
         .stTextInput > div > div > input {
             background: rgba(255,255,255,0.06) !important;
             border: 1px solid rgba(255,255,255,0.1) !important;
@@ -198,6 +223,8 @@ def render_login():
             font-size: 16px !important;
             width: 100% !important;
             transition: all 0.3s !important;
+            position: relative;
+            z-index: 1;
         }
         .stTextInput > div > div > input:focus {
             border-color: #f0c040 !important;
@@ -215,6 +242,8 @@ def render_login():
             margin-top: 20px !important;
             box-shadow: 0 8px 30px rgba(240,192,64,0.25) !important;
             transition: all 0.3s !important;
+            position: relative;
+            z-index: 1;
         }
         .stButton > button:hover {
             transform: scale(1.02) !important;
@@ -228,42 +257,61 @@ def render_login():
             padding: 10px 20px !important;
             margin-top: 12px !important;
             font-size: 14px !important;
+            position: relative;
+            z-index: 1;
         }
     </style>
     """, unsafe_allow_html=True)
 
-    # Background particles
-    st.markdown('<div id="particles-bg"></div>', unsafe_allow_html=True)
-    st.markdown('<div class="glow-orb"></div>', unsafe_allow_html=True)
-
-    # DPSR animated letters
+    # ---- Background: nebula + particles ----
     st.markdown("""
-    <div class="dpsr-container">
-        <span>D</span>
-        <span>P</span>
-        <span>S</span>
-        <span>R</span>
+    <div id="nebula">
+        <div class="nebula-blob"></div>
+        <div class="nebula-blob"></div>
+    </div>
+    <script>
+        (function() {
+            const nebula = document.getElementById('nebula');
+            for (let i=0; i<100; i++) {
+                const p = document.createElement('div');
+                p.className = 'particle';
+                p.style.left = Math.random() * 100 + '%';
+                p.style.top = Math.random() * 100 + '%';
+                p.style.width = (1 + Math.random() * 3) + 'px';
+                p.style.height = p.style.width;
+                p.style.animationDelay = Math.random() * 5 + 's';
+                p.style.animationDuration = (3 + Math.random() * 3) + 's';
+                nebula.appendChild(p);
+            }
+        })();
+    </script>
+    """, unsafe_allow_html=True)
+
+    # ---- DPSR + Title ----
+    st.markdown("""
+    <div class="cinematic-wrapper">
+        <div class="dpsr-letters">
+            <span>D</span>
+            <span>P</span>
+            <span>S</span>
+            <span>R</span>
+        </div>
+        <div class="company-title">Doosan Power Systems Arabia</div>
+        <div class="company-sub">— ULTIMATE ATTENDANCE SYSTEM —</div>
+        <div class="title-divider"></div>
     </div>
     """, unsafe_allow_html=True)
 
-    # Cinematic title
+    # ---- Login Card ----
     st.markdown("""
-    <div class="title-container">
-        <div class="main">Doosan Power Systems Arabia</div>
-        <div class="sub">— ULTIMATE ATTENDANCE SYSTEM —</div>
-        <div class="line"></div>
-    </div>
+    <div class="login-wrapper">
+        <div class="login-card">
+            <span class="car-icon">🚗</span>
+            <h2>✨ <span>Ultimate</span> Attendance</h2>
+            <div class="sub">SYSTEM v3.0</div>
     """, unsafe_allow_html=True)
 
-    # Login box
-    st.markdown('<div class="login-wrapper">', unsafe_allow_html=True)
-    st.markdown("""
-    <div class="login-box">
-        <h2>✨ <span>Ultimate</span> Attendance</h2>
-        <div class="sub">SYSTEM v3.0</div>
-    """, unsafe_allow_html=True)
-
-    # Streamlit login fields (labels now non‑empty)
+    # ---- Streamlit fields ----
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
         username = st.text_input("Username", placeholder="👤 Username", key="login_username", label_visibility="collapsed")
@@ -275,30 +323,7 @@ def render_login():
             else:
                 st.error("❌ Invalid username or password.")
 
-    st.markdown('</div></div>', unsafe_allow_html=True)
-
-    # JavaScript for particles
-    st.markdown("""
-    <script>
-        (function() {
-            const bg = document.getElementById('particles-bg');
-            if (!bg) return;
-            for (let i=0; i<80; i++) {
-                const p = document.createElement('div');
-                p.className = 'particle';
-                p.style.left = Math.random() * 100 + '%';
-                p.style.top = Math.random() * 100 + '%';
-                const size = 2 + Math.random() * 4;
-                p.style.width = size + 'px';
-                p.style.height = size + 'px';
-                p.style.animationDelay = Math.random() * 6 + 's';
-                p.style.animationDuration = (4 + Math.random() * 4) + 's';
-                p.style.background = i % 3 === 0 ? 'rgba(240,192,64,0.4)' : 'rgba(255,255,255,0.2)';
-                bg.appendChild(p);
-            }
-        })();
-    </script>
-    """, unsafe_allow_html=True)
+    st.markdown("</div></div>", unsafe_allow_html=True)
 
 
 # ============================================================
